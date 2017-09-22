@@ -11,7 +11,7 @@
   "require": {
     "php": ">=7.0",
     "container-interop/service-provider": "~0.3.0",
-    "thecodingmachine/common-factories": "dev-master",
+    "thecodingmachine/common-factories": "^0.3",
     "tedivm/stash": "~0.14.0"
   },
   "require-dev": {
