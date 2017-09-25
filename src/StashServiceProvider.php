@@ -2,10 +2,10 @@
 
 namespace TheCodingMachine;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Interop\Container\Factories\Alias;
 use Interop\Container\Factories\Parameter;
-use Interop\Container\ServiceProvider;
+use Interop\Container\ServiceProviderInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Stash\Driver\Apc;
 use Stash\Driver\BlackHole;
@@ -24,7 +24,7 @@ use Twig_LoaderInterface;
 use Twig_Loader_Chain;
 use Twig_Loader_Filesystem;
 
-class StashServiceProvider implements ServiceProvider
+class StashServiceProvider implements ServiceProviderInterface
 {
     const PACKAGE = 'thecodingmachine.stash-universal-module';
 
@@ -38,7 +38,7 @@ class StashServiceProvider implements ServiceProvider
         $this->suffix = $suffix ? '.'.$suffix : '';
     }
 
-    public function getServices()
+    public function getFactories()
     {
         return [
             'stash'.$this->suffix.'.composite.options' => function(ContainerInterface $container) : array
@@ -105,6 +105,11 @@ class StashServiceProvider implements ServiceProvider
         ];
     }
 
+    public function getExtensions()
+    {
+        return [];
+    }
+
     /**
      * Returns the entry named PACKAGE.$name, of simply $name if PACKAGE.$name is not found.
      *
@@ -129,6 +134,4 @@ class StashServiceProvider implements ServiceProvider
     {
         return new BlackHole();
     }
-
-
 }
